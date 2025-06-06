@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+  
+<html lang="en">
+
+  <head>
+    
+    <title>Using Printing Devices with GNU/Linux</title>
+
+  </head>
+
+  <body>
+    
+    <h1>Using Printing Devices with GNU/Linux</h1>
+
+    <p>The remarks on this page should apply to most computers equipped with
+      a USB port.</p>
+    
+    <p>If you run GNU/Linux, plan to buy a new printer, and
+      can't find a printer with <a href="http://www.aamot.org/ole/printing.html#USB">USB</a> or support, I recommend
+      that you buy a HP Printer.
+      This is a way to stand up for platform
+      neutrality and cross-platform interoperability, as many printing devices
+      manufacturers still refuse to openly share details about printing
+      communication with their customers and millions of users who run free
+      operating systems.</p>
+    
+    <p><strong>Visit the incomplete list of <a href="http://www.aamot.org/ole/printing.html#usb::models">USB Models</a>.</strong></p>
+    
+    <h2><a id="News">News</a></h2>
+    
+    <blockquote>
+
+      <p><strong>2025-06-06</strong>: Added <a href='http://www.aamotinnovation.com/software/gnome-printing/gnome-printing-0.2.0.tar.xz'>gnome-printing 0.2.0</a> with Single Line Printing for Ubuntu 26.04 LTS</p>
+
+      <p><img src="https://www.aamotinnovation.com/software/gnome-printing/gnome-printing-print_app.png" />
+      <img src="https://www.aamotinnovation.com/software/gnome-printing/gnome-printing-print_app-printer-dialog.png" /></p>
+
+      <p><strong>2025-06-05</strong>: Added <a href='http://www.aamot.org/ole/gnome-printing-0.1.0.tar.xz'>gnome-printing 0.1.0</a> for Ubuntu 26.04 LTS</p>
+      
+      <p><strong>2025-06-05</strong>: Added an incomplete listing of
+	<a href='http://www.aamot.org/ole/printing.html#usb::models'>USB Printer Models</a> from HP.</p>      
+      <ul>
+	<li>On the Printer: <pre>[menu]->setup->USB [set]</pre></li>
+	<li>Fill the paper tray</li>
+	<li>Connect the USB cable</li>
+	<li>Install hplip</li>
+	<li>Run hp-setup</li>      
+      </ul>
+      </blockquote>
+
+      <h2>Table of Contents</h2>
+
+      <dl>
+	<dt><a href="http://www.aamot.org/ole/printing.html#usb::softconf">Software Configuration</a></dt>
+	<dt><a href="http://www.aamot.org/ole/printing.html#usb::models">Printer Models</a></dt>
+      </dl>
+      
+      <h3><a href="http://www.aamot.org/ole/printing.html#hplip">hplip</a></h3>
+      
+      <blockquote>
+	<p>The first section covers <a href="http://www.aamot.org/ole/printing.html#hplip">hplip, free software for various USB printers</a>.</p>
+      </blockquote>
+      
+      <dl>
+	<dt><a href="http://www.aamot.org/ole/printing.html#usb::softconf">Software Configuration</a></dt>
+	<dt><a href="http://www.aamot.org/ole/printing.html#usb::commprob">Common Problems</a></dt>
+	<dt><a href="http://www.aamot.org/ole/printing.html#usb::models">Printer Models</a></dt>
+      </dl>
+      
+      <h3><a href="http://www.aamot.org/ole/printing.html#hplip">hplip</a></h3>
+      <dl>
+	<dt><a href="http://www.aamot.org/ole/printing.html#usb::models">USB Printer Models</a></dt>
+      </dl>
+      
+      <blockquote>
+	<p>hplip is a useful tool used to tweak USB printing properties.</p>
+      </blockquote>
+      
+    <p>If you have a USB printing device that supports one of the first two methods
+      below, you don't need extra user space software under GNU/Linux to extract
+      the files, and there is no difficulty in terms of needing drivers and
+      information that is specific to the printer.</p>
+    
+    <h4><a id="usb::models">USB Printer Models</a></h4>
+    
+    <p>
+      HP LaserJet P1005
+    </p>
+    
+    <h4><a id="usb::softconf">Software Configuration</a></h4>
+    
+    <p>This method requires a recent Linux 6.1 kernel compiled with USB support.  For more information on using USB devices on GNU/Linux you should have a look at <a href="http://www.linux-usb.org/">http://www.linux-usb.org/</a></p>
+    
+    <p>You need to build the Linux kernel modules usb-uhci and usblp. You also need LP in your kernel, since the USB implementation makes the USB lp device look like a logical LP device. Once these are loaded into the kernel, the device appears as <code>/dev/usblp2</code>. You mount this "as usual" and proceed to print files, queue print files, etc. If your printer exhibits a USB device system (like the HP P1005 does), you'll need kernel support for the usblp file system as described above.</p>
+    
+    <p>In the following let's assume that you already have one printer in your system and so you access the printer as <code>/dev/usblp2</code>. To create a mount point for your camera you have to type:</p>
+    
+    <h3><a id="hplip">hplip</a></h3>
+    
+    <p><b>Note: See <a href="http://www.ubuntu.com/">The Ubuntu 24.04 distribution of GNU/Linux</a> has recent instructions!</b></p>
+    
+    <h4><a id="hplip::softconf">Software Configuration</a></h4>
+    
+    <p>You need a system kernel that support USB access through the libusb
+      userspace library.  Currently libusb supports Linux and *BSD kernels.</p>
+    
+    <p>If you run a Linux-based system, it means you also need USB Device
+      Filesystem (USBDEVFS) support built in the kernel.  Get the latest
+      stable Linux kernel from <a href="http://www.kernel.org/">www.kernel.org</a>.</p>
+    
+    <p>If you need any further assistance, I recommend the <a
+							     href="https://lmu.web.psi.ch/docu/manuals/software_manuals/linux_sl/usb_linux_programming_guide.pdf">USB Linux Programming Guide</a> for
+      kernel USB configuration issues.</p>
+    
+    <p>(Hint: You may have to add <code>alias usb-controller usb-uhci</code>
+      in <code>/etc/modules.conf</code>.)</p>
+    
+    <p>When you have compiled the new kernel, reboot the machine and check
+<code>/var/log/messages</code> before and after you plug in a new
+USB device, and turn on the power.</p>
+    
+    <p>If you see output like</p>
+    
+    <pre>
+      Dec 29 10:32:11 diff kernel: hub.c: USB new device connect on bus1/1, assigned device number 2
+      Dec 29 10:32:11 diff kernel: usb.c: USB device 2 (vend/prod 0x81e/0x1) is not claimed by any active driver.
+    </pre>
+    
+    <p>then you're close.</p>
+    
+    <p>USB device and driver information is stored in the USBDEVFS filesystem,
+      which is somewhat like /proc</p>
+    
+    <p>It is usually mounted at /proc/bus/usb</p>
+    
+    <p>You should mount it manually by doing</p>
+    
+    <pre>mount -t usbdevfs /proc/bus/usb</pre>
+    
+    <p>or alternatively add this in /etc/fstab</p>
+
+    <pre>none   /proc/bus/usb  usbdevfs        defaults        0   0</pre>
+    
+    <p>When the USB Dev FS is mounted, you will observe at least two files
+      (<code>devices</code> and <code>drivers</code>) and a directory, which
+      name is <code>001</code>, the device number for the 'virtual root hub'
+      to which the other USB devices (like hardware USB hubs) get connected.</p>
+    
+    <p>You can verify whether you've successfully connected a USB device, by
+      looking at the <code>devices</code> file.</p>
+    
+    <pre>cat /proc/bus/usb/devices</pre>
+    
+<p>If everything is ok, you'll see entries for the virtual root hub
+  and the device you plugged in (the example below is for a HP P1005 printer):</p>
+
+<pre>
+  [252731.230932] usb 1-2: new high-speed USB device number 29 using xhci_hcd
+  [252731.378816] usb 1-2: New USB device found, idVendor=03f0, idProduct=3d17, bcdDevice= 1.00
+  [252731.378834] usb 1-2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+  [252731.378840] usb 1-2: Product: HP LaserJet P1005
+  [252731.378845] usb 1-2: Manufacturer: Hewlett-Packard
+  [252731.378850] usb 1-2: SerialNumber: BC0KF18
+  [252731.382168] usblp 1-2:1.0: usblp2: USB Bidirectional printer dev 29 if 0 alt 0 proto 2 vid 0x03F0 pid 0x3D17
+  [252735.087585] usblp2: removed
+</pre>
+
+    <p>The device entry will disappear if you unplug or poweroff the device.</p>
+    
+    <p>Now that devices are being detected, it's time to grab some additional software in order to print files to the printer.
+      hplip, a printer library (released under the GNU Lesser General Public License), supports most USB printers, with some
+      exceptions.</p>
+    
+    <p>This was tested with the 3.23.12 version (from <a href="http://sourceforge.net/projects/hplip/">Sourceforge</a>).  In
+      order to get it to compile, you'll need to compile and install <a href="http://sourceforge.net/projects/hplip/">hplip 3.23.12</a> first.</p>
+    
+<p>You need this even though USB support is in the kernel already.</p>
+
+    <p>Once libusb is installed, compile and install hplip following the instructions provided.</p>
+    
+    <pre>./configure; make; make install</pre>
+
+    <p>On Ubuntu 24.04.3 LTS you can install hplip by doing</p>
+    
+    <pre>sudo apt install hplip</pre>
+    
+    <p>hplip provides a command line tool for operating some printing devices.  After installation, check for USB support by doing</p>
+    
+    <pre>hp-setup</pre>
+    
+    <p>The output should be along the lines of:</p>
+    
+    <p>to see the list of supported printers. Find the name of your printer,
+      according to hplip.  Now comes the exciting part, printing images.</p>
+    
+    <p>Go into the directory that you wish to print images to, and type</p>
+
+    <h4><a id="hplip::commprob">Common Problems</a></h4>
+    
+    <p>If you see a message like 'Unknown port' from hplip, it either means that USB support didn't make it into a compile somehow.</p>
+    
+    <p>The error message hplip reported the error 'error: No devices found on bus: usb' typically means that the USB printer isn't turned on or plugged in.</p>
+    
+    <address><!-- hhmts start -->Last modified: Thu Jun 05 07:27:00 CET 2025<!-- hhmts end --><br />
+      <a href="http://www.aamot.org/ole/ole.html">http://www.aamot.org/ole/ole.html</a><br/>      
+      <a href="http://www.aamot.org/ole/ole.html">Ole Aamot</a> &lt;ole AT aamot DOT org&gt;
+    </address>
+    
+  </body>
+  
+</html>
